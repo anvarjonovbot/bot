@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
 """
-Vakansiya Telegram Boti
-========================
-Ish beruvchilar vakansiya joylashtiradi,
-Ishchilar vakansiyalarni ko'radi va ariza yuboradi.
-
-Ishga tushirish:
-  pip install pyTelegramBotAPI
-  python vacancy_bot.py
+Vakansiya Telegram Boti (24/7 UptimeRobot moslashuvi bilan)
+=========================================================
+Kutubxonalar:
+  pip install pyTelegramBotAPI flask
 """
 
 import telebot
@@ -15,6 +11,8 @@ from telebot import types
 import json
 import os
 from datetime import datetime
+from threading import Thread
+from flask import Flask
 
 # ===================== SOZLAMALAR =====================
 BOT_TOKEN = "8787381343:AAHIdMEjAreb8pmD3v9SfWNSIrn2JHMaE80"  # @BotFather dan oling
@@ -26,6 +24,17 @@ DATA_FILE = "vacancies.json"
 # ======================================================
 
 bot = telebot.TeleBot(BOT_TOKEN)
+app = Flask('')
+
+# 24/7 ishlash uchun UptimeRobot kelib uriladigan manzil
+@app.route('/')
+def home():
+    return "Bot 24/7 rejimda faol ishlamoqda!"
+
+def run_web_server():
+    # Render, Replit yoki shunga o'xshash platformalar portni o'zi beradi
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host='0.0.0.0', port=port)
 
 # ===================== MA'LUMOTLAR =====================
 
@@ -442,6 +451,12 @@ def delete_vacancy(call):
 # ===================== BOTNI ISHGA TUSHIRISH =====================
 
 if __name__ == "__main__":
-    print("🤖 Vakansiya boti ishga tushdi...")
-    print("Botni to'xtatish uchun Ctrl+C bosing.")
+    print("🤖 Vakansiya boti fonda server bilan ishga tushmoqda...")
+    
+    # Flask serverni alohida oqimda (Thread) ishga tushiramiz
+    server_thread = Thread(target=run_web_server)
+    server_thread.daemon = True
+    server_thread.start()
+    
+    # Botni asosiy oqimda ishga tushiramiz
     bot.infinity_polling()
