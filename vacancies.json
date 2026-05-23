@@ -1,0 +1,28 @@
+{
+  "vacancies": [
+    {
+      "id": 1,
+      "title": "Dtektor",
+      "company": "Windows",
+      "location": "New york",
+      "salary": "10 000 dollar",
+      "description": "10:00 20:00",
+      "contact": "+998 94 068 83 90",
+      "date": "23.05.2026",
+      "added_by": 8202709606
+    },
+    {
+      "id": 2,
+      "title": "qoravul",
+      "company": "ispan aka company",
+      "location": "Payzabod",
+      "salary": "2 000 000",
+      "description": "24/7 dam olish siz",
+      "contact": "+998 88 981 02 01",
+      "date": "23.05.2026",
+      "added_by": 5390177377
+    }
+  ],
+  "next_id": 3,
+  "employers": {}
+}
